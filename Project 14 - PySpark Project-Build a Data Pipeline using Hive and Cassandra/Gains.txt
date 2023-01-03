@@ -1,0 +1,98 @@
+PySpark integration with Hive and Cassandra
+
+1. Data integration : Data can be in various other formats than csv
+
+2. Sometimnes data are stored in server, in that case data processing
+takes more time. Spark can be used to minimize the latency
+
+3. Hive : Stores data in HDFS. Its a data warehouse system. Data warehouses
+contain all sort of data. Data warehouse is a slow and cheap solution.
+
+Hive is low because it uses commodity hardware. Also it will use hadoop 
+engine
+
+
+4. If we try to access the data directly from spark to the Hive, it will
+be slower. Rather from Spark, we will connect to the 'Meta store'.In that
+case, we will get only schema info. Now we will get out data organized 
+according to the Hive distributed system. We got the info from meta store
+already. Now we will push the data to the hive distributed system.
+
+So after getting the schema from the meta store, we will get the data
+organized accordingly and analyze the data in spark and then push the 
+data back to hive.
+
+
+
+
+
+
+Steps : Integration of Spark and Hive
+---------------------
+
+1. In EC2 instance install docker and install hive and spark in that
+docker container
+
+2. in the ec2 instance, copy docker exp folder(necessary codes for setting up) from our local to 
+ec2. 
+
+3. using the yml file, all the resources are created inside the container
+
+4. then with cmd, do the port forwarding (port mapping of all services) : with this we can access the services/containers running 
+on ec2, in our local ports
+
+5. then we will go indside each individual containers (spark,hive etc) to check if the are running fine
+
+6. we will access the hive datanode and run the commands because 
+we want to see the tables,databases etc
+
+7. We usually dont read and write data from Spark. We connect 
+with the hive meta store. On ETL, The data will be saved on Spark server. Then we can transfer data
+to HDFS. 
+
+8. Then we will code in the jupyter notebook. There we will run 
+Spark and import HiveContext
+
+9. In the notebook, we will enable hivesupport. That works Through HQL. The data is stored in a way 
+as if the data is stored in Hive so that you can simply copy 
+that particular data. Another workaround to connect with Hive 
+is JDBC connection but that is not the recommended way because of speed.
+
+10. We can create databases and tables in the hive metastore 
+through spark
+
+11. We can read and write data from spark to hive metastore, we can see the metastore
+
+-------------------------------------
+Steps : Integration of Spark and Cassandra
+------------------------------------
+
+1. Cassandra is a distributed data warehouse. FOr example,
+if you want to push from local server to Cassandra, Cassandra will 
+create different machines and store the data 
+
+2. It is a column oriented database : Read/write speed is fast
+
+3. No single point of failure because of distributed nature
+
+4. Cassandra installation : download and move the file to a 
+drive and then add CASSANDRA_HOME as the environment variable
+and set the location of the folder. Then add the /bin path to the 
+path variable.
+
+5. open terminal and run cassandra command. you have to have java and scala installed 
+
+6. now that the cassandra server is started, run cqlsh in another 
+terminal 
+
+7. on command, instead of databases, it is called 'keyspaces'
+
+8. we can insert records in the terminal
+
+9. Cassandra and Spark : In jupyter we will import and link 
+the cass connector with spark. 
+
+10. you can not create new table with spark, only append the data
+
+
+
